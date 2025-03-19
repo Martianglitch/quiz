@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Profile - Quiz Mania</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <style>
+        body {
+            background: linear-gradient(to right, #6dd5ed, #2193b0);
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: 'Comic Sans MS', cursive, sans-serif;
+        }
+
+        .container {
+            background-color: #fff;
+            padding: 40px;
+            border-radius: 20px;
+            width: 80%;
+            max-width: 500px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            animation: fadeIn 0.8s ease-in-out;
+        }
+
+        h1 {
+            color: #2193b0;
+            margin-bottom: 20px;
+        }
+
+        .profile-avatar {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            border: 4px solid #ff7eb3;
+            margin-bottom: 20px;
+        }
+
+        .btn-custom {
+            padding: 12px 20px;
+            font-size: 18px;
+            border-radius: 12px;
+            background: linear-gradient(to right, #ff758c, #ff7eb3);
+            color: white;
+            width: 100%;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .btn-custom:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .back-home {
+            display: inline-block;
+            margin-top: 20px;
+            color: #2193b0;
+            text-decoration: none;
+            font-size: 18px;
+        }
+
+        .back-home:hover {
+            text-decoration: underline;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>👤 Your Profile</h1>
+        <img src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png" alt="User Avatar" class="profile-avatar"
+            id="userAvatar">
+        <h3 id="usernameDisplay">Username: <span id="username"></span></h3>
+        <p id="emailDisplay">Email: <span id="email"></span></p>
+        <p>Total Games Played: <span id="gamesPlayed">0</span></p>
+        <p>Highest Score: <span id="highScore">0</span></p>
+
+        <button onclick="logoutUser()" class="btn btn-custom">Logout 🚪</button>
+        <a href="dashboard.htm" class="back-home">⬅️ Back to Dashboard</a>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", loadProfile);
+
+        function loadProfile() {
+            const currentUser = localStorage.getItem("currentUser");
+            if (!currentUser) {
+                alert("❌ No user is logged in! Redirecting to login...");
+                window.location.href = "login.htm";
+                return;
+            }
+
+            const userData = JSON.parse(localStorage.getItem(currentUser));
+
+            if (userData) {
+                document.getElementById("username").textContent = userData.username || "Unknown";
+                document.getElementById("email").textContent = userData.email || "Not provided";
+                document.getElementById("gamesPlayed").textContent = userData.gamesPlayed || 0;
+                document.getElementById("highScore").textContent = userData.highScore || 0;
+            } else {
+                alert("⚠️ User data not found. Please register again.");
+                window.location.href = "registration.htm";
+            }
+        }
+
+        function logoutUser() {
+            localStorage.removeItem("currentUser");
+            alert("👋 You have been logged out!");
+            window.location.href = "home.htm";
+        }
+    </script>
+</body>
+
+</html>

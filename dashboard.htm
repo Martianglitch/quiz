@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - Quiz Mania</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <style>
+        body {
+            background: linear-gradient(to right, #ffecd2, #fcb69f);
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: 'Comic Sans MS', cursive, sans-serif;
+            overflow: hidden;
+        }
+
+        .container {
+            background-color: #fff;
+            padding: 40px;
+            border-radius: 20px;
+            width: 90%;
+            max-width: 600px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            animation: fadeIn 1s ease-in-out;
+        }
+
+        h1 {
+            font-size: 36px;
+            color: #ff6f61;
+            margin-bottom: 20px;
+        }
+
+        .btn-custom {
+            padding: 12px 20px;
+            font-size: 20px;
+            border-radius: 12px;
+            width: 100%;
+            margin-bottom: 15px;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .btn-start {
+            background: linear-gradient(to right, #6a11cb, #2575fc);
+            color: white;
+        }
+
+        .btn-leaderboard {
+            background: linear-gradient(to right, #ff512f, #f09819);
+            color: white;
+        }
+
+        .btn-profile {
+            background: linear-gradient(to right, #12c2e9, #c471ed, #f64f59);
+            color: white;
+        }
+
+        .btn-logout {
+            background: linear-gradient(to right, #ff758c, #ff7eb3);
+            color: white;
+        }
+
+        .btn-custom:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .robot {
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            width: 100px;
+            animation: float 3s infinite ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-15px);
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>Welcome, <span id="userName">Player</span>! 🎮</h1>
+        <p>Select an option to get started!</p>
+
+        <a href="quiz.htm" class="btn btn-custom btn-start">🎯 Start Quiz</a>
+        <a href="leaderboard.htm" class="btn btn-custom btn-leaderboard">🏆 View Leaderboard</a>
+        <a href="profile.htm" class="btn btn-custom btn-profile">👤 View Profile</a>
+        <button class="btn btn-custom btn-logout" onclick="logout()">🔐 Logout</button>
+    </div>
+
+    <img src="https://pngimg.com/uploads/robot/robot_PNG26.png" alt="Happy Robot" class="robot">
+
+    <script>
+        // Fetch username from local storage
+        document.addEventListener("DOMContentLoaded", function () {
+        const username = localStorage.getItem("loggedInUser");
+
+        if (username) {
+            document.getElementById("userName").innerText = username;
+        } else {
+            alert("🔒 You are not logged in! Redirecting to login...");
+            window.location.href = "login.htm";
+        }
+    });
+
+           // Logout function
+        function logout() {
+            localStorage.removeItem("loggedInUser");
+            alert("✅ Logged out successfully!");
+            window.location.href = "login.htm";
+        }
+    </script>
+    
+    
+
+</body>
+
+</html>

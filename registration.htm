@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register for Quiz Mania</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <style>
+        body {
+            background: linear-gradient(to right, #ff758c, #ff7eb3);
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: 'Comic Sans MS', cursive, sans-serif;
+            margin: 0;
+        }
+
+        .container {
+            background-color: #fff;
+            padding: 40px;
+            border-radius: 20px;
+            width: 90%;
+            max-width: 450px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        h1 {
+            font-size: 36px;
+            color: #ff758c;
+            margin-bottom: 20px;
+        }
+
+        .form-control {
+            font-size: 18px;
+            margin-bottom: 20px;
+            border-radius: 12px;
+            padding: 12px;
+            border: 2px solid #ff758c;
+        }
+
+        .btn-custom {
+            padding: 12px 20px;
+            font-size: 20px;
+            border-radius: 12px;
+            background: linear-gradient(to right, #6dd5ed, #2193b0);
+            color: white;
+            width: 100%;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .btn-custom:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .back-home {
+            display: inline-block;
+            margin-top: 20px;
+            color: #2193b0;
+            text-decoration: none;
+            font-size: 18px;
+        }
+
+        .back-home:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>Register 🎮</h1>
+        <form id="registerForm" onsubmit="return validateRegistration()">
+            <input type="text" id="regUsername" class="form-control" placeholder="Choose a Username" required>
+            <input type="email" id="regEmail" class="form-control" placeholder="Enter your Email" required>
+            <input type="password" id="regPassword" class="form-control" placeholder="Set a Password" required>
+            <input type="password" id="confirmPassword" class="form-control" placeholder="Confirm Password" required>
+            <button type="submit" class="btn btn-custom">Register</button>
+        </form>
+        <a href="home.htm" class="back-home">⬅️ Back to Home</a>
+    </div>
+
+    <script>
+        function validateRegistration() {
+        const username = document.getElementById("regUsername").value;
+        const email = document.getElementById("regEmail").value;
+        const password = document.getElementById("regPassword").value;
+        const confirmPassword = document.getElementById("confirmPassword").value;
+
+        if (password !== confirmPassword) {
+            alert("❌ Passwords do not match. Please try again! 🙁");
+            return false;
+        }
+
+        if (password.length < 6) {
+            alert("⚠️ Password should be at least 6 characters! 🔐");
+            return false;
+        }
+
+        // Check if username already exists
+        if (localStorage.getItem(username)) {
+            alert("❌ Username already exists. Choose a different one.");
+            return false;
+        }
+
+        // Store user data in localStorage
+        const userData = {
+            username: username,
+            email: email,
+            password: password
+        };
+
+        localStorage.setItem(username, JSON.stringify(userData)); // Save data in localStorage
+        alert(`✅ Registration Successful! 🎉 Welcome, ${username}!`);
+        window.location.href = "login.htm"; // Redirect to login page
+        return false;
+    }
+
+    const userData = {
+    username: username,
+    email: email,
+    password: password,
+    gamesPlayed: 0,
+    highScore: 0
+    };
+
+    </script>
+</body>
+
+</html>
