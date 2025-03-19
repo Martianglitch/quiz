@@ -85,6 +85,14 @@ const resultImage = document.getElementById('result-image');
 const quizContainer = document.getElementById('quiz-container');
 const timerElement = document.getElementById('time');
 
+// Initialize Quiz
+if (selectedQuestions.length > 0) {
+    loadQuestion();
+} else {
+    console.error("No questions loaded!");
+}
+
+
 // Load Initial Question
 function loadQuestion() {
     if (currentQuestionIndex >= selectedQuestions.length) {
