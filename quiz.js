@@ -124,10 +124,10 @@ function showResult() {
 
     if (score >= 15) { // Pass if 15/25 or more
         resultText.innerHTML = `🎉 Well done! You scored ${score}/${totalQuestions}!`;
-        resultImage.innerHTML = '<img src="https://cdn.pixabay.com/photo/2020/03/04/10/59/success-4900423_1280.png" width="100">';
+        resultImage.innerHTML = '<img src="good.png" width="100">';
     } else {
         resultText.innerHTML = `🙁 Oops! You scored ${score}/${totalQuestions}. Try again!`;
-        resultImage.innerHTML = '<img src="https://cdn.pixabay.com/photo/2017/09/25/13/12/donkey-2785423_1280.png" width="100">';
+        resultImage.innerHTML = '<img src="bad.png" width="100">';
     }
 
     // Save score to leaderboard if user is logged in
