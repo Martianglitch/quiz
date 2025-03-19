@@ -1,4 +1,5 @@
 // Question Bank (Add all questions here)
+
 const questions = [
     {question: "What is the output of `print(2 * 3 ** 3)`?", options: ["54", "18", "216", "24"], answer: "54"},
     {question: "Which of the following is a valid variable name in Python?", options: ["2var", "_my_var", "my-var", "for"], answer: "_my_var"},
@@ -178,15 +179,22 @@ function saveScore(username, score) {
         highScore: 0,
     };
 
+    // Increment total attempts
     userData.gamesPlayed += 1;
-    if (score > userData.highScore) {
-        userData.highScore = score; // Update highest score
-    }
+
+    
+    // Save updated user data
     localStorage.setItem(username, JSON.stringify(userData));
 
+    // Update leaderboard
     let leaderboardData = JSON.parse(localStorage.getItem("leaderboard")) || [];
+    leaderboardData = leaderboardData.filter(entry => entry.username !== username); // Remove old entry if exists
     leaderboardData.push({ username, score });
+    leaderboardData.sort((a, b) => b.score - a.score);
     localStorage.setItem("leaderboard", JSON.stringify(leaderboardData));
+
+    // Load updated profile data after saving score
+    loadUserProfile(); // Ensure UI refresh after score update
 }
 
 // Get username after login
@@ -194,3 +202,21 @@ const loggedInUser = localStorage.getItem("loggedInUser");
 
 // Initialize Quiz
 loadQuestion();
+
+
+// Load User Profile and Update UI
+function loadUserProfile() {
+    if (loggedInUser) {
+        const userData = JSON.parse(localStorage.getItem(loggedInUser)) || {
+            gamesPlayed: 0,
+            highScore: 0,
+        };
+
+        // Update the profile page with user data
+        document.getElementById('games-played').innerText = userData.gamesPlayed || 0;
+        document.getElementById('high-score').innerText = userData.highScore || 0;
+    } else {
+        console.warn("⚠️ No user logged in. Profile data not loaded.");
+    }
+}
+
