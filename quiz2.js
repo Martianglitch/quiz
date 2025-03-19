@@ -1,8 +1,4 @@
 // Question Bank (Add all questions here)
-// deleteUser("unwantedUser"); // Call this to remove a user
-// clearAllData(); // Call to wipe all data
-// deleteFromLeaderboard("unwantedUser"); // Call this to remove user from leaderboard
-
 const questions = [
     {question: "What is the output of `print(2 * 3 ** 3)`?", options: ["54", "18", "216", "24"], answer: "54"},
     {question: "Which of the following is a valid variable name in Python?", options: ["2var", "_my_var", "my-var", "for"], answer: "_my_var"},
@@ -82,14 +78,6 @@ const resultText = document.getElementById('result-text');
 const resultImage = document.getElementById('result-image');
 const quizContainer = document.getElementById('quiz-container');
 const timerElement = document.getElementById('time');
-
-
-// Initialize Quiz
-if (selectedQuestions.length > 0) {
-    loadQuestion();
-} else {
-    console.error("No questions loaded!");
-}
 
 // Load Initial Question
 function loadQuestion() {
@@ -200,20 +188,6 @@ function saveScore(username, score) {
     leaderboardData.push({ username, score });
     localStorage.setItem("leaderboard", JSON.stringify(leaderboardData));
 }
-
-// Set expiration time in hours
-const expirationTime = 24; // Example: 24 hours
-const now = new Date().getTime();
-localStorage.setItem("userData", JSON.stringify({ data: loggedInUser, timestamp: now }));
-
-// Check and clear after expiration
-setInterval(() => {
-    const savedData = JSON.parse(localStorage.getItem("userData"));
-    if (savedData && (new Date().getTime() - savedData.timestamp > expirationTime * 60 * 60 * 1000)) {
-        localStorage.removeItem("userData");
-        alert("User session expired. Data cleared!");
-    }
-}, 1000);
 
 // Get username after login
 const loggedInUser = localStorage.getItem("loggedInUser");
